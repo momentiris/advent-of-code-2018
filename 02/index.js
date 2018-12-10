@@ -1,33 +1,54 @@
 const fs = require('fs')
 
 const input = fs.readFileSync(__dirname + '/input.txt', 'utf-8')
-  .split('\n').map(x => x.split(''))
+  .split('\n')
+ 
+// part 1 
+const first = input
+  .map(x => x.split('')
+  .sort()
+  .join(''))
+  .reduce((acc, val) => {
+    const match = val.match(/(.)\1+/g)
+    const two = match.filter(x => x.length === 2).length 
+    const three = match.filter(x => x.length === 3).length 
 
-const counter = data => 
-  data.map(row => 
-    row.reduce((obj, l) => {
-      if (!obj[l]) obj[l] = 0;
-      obj[l]++
+    return [
+      acc[0] = two ? acc[0] + 1 : acc[0],
+      acc[1] = three ? acc[1] + 1 : acc[1],
+    ]
+  }, [0, 0])
+  .reduce((a, b) => a * b)
 
-      return obj
-    }, {})
-  )
-let twos = 0
-let threes = 0
+  console.log(first);
 
-const test = [
-  ...counter(input)
-]
 
-const hej = test.forEach(inst => {
-  const ok = {}
-  Object.inst.reduce((obj, x) => {
-    console.log(obj);
-    
-    return obj
-  }, ok)
-  
-})
+// part 2
+const findPlease = (input) => {
+  let hit
+  splitInput.forEach((line, i) => {    
+    splitInput.slice(i).forEach((sl, si) => {
+      if(sl.filter((slsl, sisi) => slsl === line[sisi]).length === 25) {
+        hit = [line, sl]
+      }
+    })
+  })
+  console.log(hit);
+}
+
+const splitInput = input.map(x => x.split(''))
+findPlease(splitInput)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
