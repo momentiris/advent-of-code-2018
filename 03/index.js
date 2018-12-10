@@ -17,18 +17,63 @@ const input = fs.readFileSync(__dirname + '/input.txt', 'utf-8')
     .filter(y => y !== '@')
   )
   .reduce((obj, item, i) =>     
-   [
-    ...obj,
-    {
-      id: item[0],
-      x: item[1],
-      y: item[2],
-      w: item[3],
-      h: item[4],
-    }
+    [
+      ...obj,
+      {
+        id: item[0],
+        x: item[1],
+        y: item[2],
+        w: item[3],
+        h: item[4],
+      }
     ], [])
 
-console.log(input);
+
+const fabric = 1000
+
+const alrighty = ({ x, y, w, h }, rest) => {
+  let collide = 0
+
+  rest.forEach(({ x: rx, r: ry, w: rw, h: rh }) => {
+
+
+  })
+  return collide
+}
+const boxes = [
+  {
+    x: 100,
+    y: 100,
+    w: 100,
+    h: 100,
+  },
+  {
+    x: 50,
+    y: 50,
+    w: 50,
+    h: 50,
+  },
+]
+
+const hej  = boxes[0]
+const svej = boxes[1]
+const okok = (hej.w * hej.h)
+
+const doesCollide = (r1, r2) => {
+    return !(r2.left > r1.right || 
+             r2.right < r1.left || 
+             r2.top > r1.bottom ||
+             r2.bottom < r1.top);
+}
+
+
+console.log(doesCollide(hej, svej))
+
+//  input.reduce((total, claim, i) => {
+//   const rest = input.slice(i)
+//   return total += alrighty(claim, rest)
+// }, 0)
+// console.log(fabric)
 
 
 // f i already have an array and i want to do the exact same operation on each of the elements in the array and return the same amount of items in the array, use the map.
