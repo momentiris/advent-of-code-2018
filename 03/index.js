@@ -28,7 +28,14 @@ const input = fs.readFileSync(__dirname + '/input.txt', 'utf-8')
     }
     ], [])
 
-// console.log(input);
+console.log(input);
+
+
+// f i already have an array and i want to do the exact same operation on each of the elements in the array and return the same amount of items in the array, use the map.
+// If i already have an array but i only want to have items in the array that match certain criteria, use the filter.
+// If i already have an array, but i want to use the values in that array to create something completely new, use the reduce.
+
+
 
 const animals = [
   {
@@ -54,7 +61,7 @@ const animals = [
 ]
 
 const weights = animals.reduce((total, animal) => {
-  console.log(animal);
+  // console.log(animal);
   return total + animal.weight
 },0)
 
