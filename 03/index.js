@@ -27,58 +27,58 @@ const input = fs.readFileSync(__dirname + '/input.txt', 'utf-8')
         h: item[4],
       }
     ], [])
-
-
-const fabric = 1000
+    
+    
+    const fabric = 1000
+    
+const calculateIntersectionX = (l1, l2) => {
+  return (l1.x1 <= l2.x2 && l1.x1 <= l1.x2) ? l1.x2 - l2.x1 : 0
+}
+const calculateIntersectionY = (l1, l2) => {
+  return (l1.y1 <= l2.y2 && l1.y1 <= l1.y2) ? l1.y2 - l2.y1 : 0
+}
 
 const alrighty = ({ x, y, w, h }, rest) => {
-  let collide = 0
-
-  rest.forEach(({ x: rx, r: ry, w: rw, h: rh }) => {
-
-
+  const currentX = {x1: x, x2: x+w}
+  const currentY = {y1: y, y2: y+h}
+  
+  return rest.map(({ x: rx, w: rw, y: ry, h: rh}) => {
+    const currentOfRestY = {y1: ry, y2: ry+rh}
+    const currentOfRestX = {x1: rx, x2: rx+rw}
+    return calculateIntersectionX(currentX, currentOfRestX)
   })
-  return collide
-}
-const boxes = [
-  {
-    x: 100,
-    y: 100,
-    w: 100,
-    h: 100,
-  },
-  {
-    x: 50,
-    y: 50,
-    w: 50,
-    h: 50,
-  },
-]
+  .filter(x => x != 0)
 
-const hej  = boxes[0]
-const svej = boxes[1]
-const okok = (hej.w * hej.h)
 
-const doesCollide = (r1, r2) => {
-    return !(r2.left > r1.right || 
-             r2.right < r1.left || 
-             r2.top > r1.bottom ||
-             r2.bottom < r1.top);
+
+
+
 }
 
 
-console.log(doesCollide(hej, svej))
 
-//  input.reduce((total, claim, i) => {
-//   const rest = input.slice(i)
-//   return total += alrighty(claim, rest)
-// }, 0)
-// console.log(fabric)
+
+const hej = input.reduce((total, claim, i) => {
+  const rest = input.slice(i)
+
+  total += alrighty(claim, rest)
+
+  return total
+}, 0)
+
+console.log(hej);
+
+
 
 
 // f i already have an array and i want to do the exact same operation on each of the elements in the array and return the same amount of items in the array, use the map.
 // If i already have an array but i only want to have items in the array that match certain criteria, use the filter.
 // If i already have an array, but i want to use the values in that array to create something completely new, use the reduce.
+
+const line1 = {x1: 50, x2: 250}
+const line2 = {x1: 300, x2: 300}
+
+
 
 
 
