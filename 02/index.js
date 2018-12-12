@@ -53,22 +53,35 @@ findPlease(splitInput)
 
 
 
+  // const firstCount = counter(input).map(row => {
+
+  //    Object.entries(row).filter(x => x[1] > 1).forEach(x => {
+  //      console.log(x);
+       
+  //    })
 
 
+            
+    
+        
 
 
+  //   // .forEach(y => {
+  //   //       y.forEach(z => {
+  //   //           console.log(z);
+  //   //       })
+  //   //       return sum
+  //   //     })
+  //   // return sum
 
+  // })
 
-
-
-
-
-
-
+  
 
   
 
 
-
-
-
+  
+    
+    
+   
