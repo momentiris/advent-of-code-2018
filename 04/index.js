@@ -18,13 +18,54 @@ const sorted = input.map(
 
 
 
+// let matchId
+// let guardIds = []
+// const ok = sorted.reduce((obj, row, i) => {
+//   const guardText = row.match(/Guard/)
+//   const guardId = guardText && row.split(' ')[3]
+//   if(guardText && obj[guardId]) {
+
+//   }
+  
+//   if(guardText) {
+
+//     matchId = row.split(' ')[3]
+//     guardIds.push(matchId)
+//     obj[matchId] = obj[matchId] || []
+//   } 
+
+//   if(!guardText) {
+//     obj[matchId] = [...obj[matchId], row]
+//   }
+  
+
+  
+//   return obj
+  
+// }, {})
+
+
+
+console.log(Object.keys(ok).length);
+
+const bajs = guardIds.reduce((obj, inst) => {
+  if (!obj[inst]) obj[inst] = 0
+  obj[inst] ++
+  return obj
+}, {})
+
+
 let matchId
-let guardIds = []
-const ok = sorted.reduce((obj, row, i) => {
+
+const lala = sorted.reduce((obj, inst, i) => {
   const guardText = row.match(/Guard/)
   const guardId = guardText && row.split(' ')[3]
-  if(guardText && obj[guardId]) {
+  if (guardText) {
+    const hasId = Object.keys(obj).find(x => x === guardId)
+    if (hasId) {
+      matchId = guardId
 
+    }
   }
   
   if(guardText) {
@@ -41,22 +82,4 @@ const ok = sorted.reduce((obj, row, i) => {
 
   
   return obj
-  
 }, {})
-
-
-
-console.log(Object.keys(ok).length);
-
-const bajs = guardIds.reduce((obj, inst) => {
-  if (!obj[inst]) obj[inst] = 0
-  obj[inst] ++
-  return obj
-}, {})
-
-
-
-
-
-
-console.log(bajs);
