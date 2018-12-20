@@ -6,80 +6,65 @@ Array.prototype.flatMap = (f,xs) =>
   xs.map(f).reduce(concat, [])
 
 const input = fs.readFileSync(__dirname + '/input.txt', 'utf-8')
-  .split('\n')
-  .map(x => x.split(' ')
-    .map(y => 
-      y.includes(',') ? 
-      y.split(',') : 
-      y.includes('x') ? 
-      y.split('x') : y
-    )
-    .reduce(concat, [])
-    .map(z => z.includes(':') ? 
-      z.replace(':', '') : 
-      z.includes('#') ? 
-      z.replace('#', '') : z
-    )
-    .filter(y => y !== '@')
-  )
-  .reduce((obj, item, i) =>     
-    [
-      ...obj,
-      {
-        id: parseInt(item[0]),
-        x: parseInt(item[1]),
-        y: parseInt(item[2]),
-        w: parseInt(item[3]),
-        h: parseInt(item[4]),
+class Sheet {
+  constructor (width = 1000, height = 1000) {
+    this._grid = Array
+      .from({ length: height })
+      .map(() => Array
+        .from({ length: width })
+        .map(() => 0));
+  }
+
+  reserve (claim) {
+    for (let y = 0; y < claim.height; y++) {
+      for (let x = 0; x < claim.width; x++) {
+        this._grid[y + claim.top][x + claim.left] += 1;
       }
-    ], [])
+    }
+  }
 
+  hasOverlap (claim) {
+    const content = [];
 
-const fabric = 1000
-console.log(input);
+    for (let y = 0; y < claim.height; y++) {
+      for (let x = 0; x < claim.width; x++) {
+        content.push(this._grid[y + claim.top][x + claim.left]);
+      }
+    }
 
-
-// const alrighty = ({ x, y, w, h }, rest) => {
-//   let collide = 0
-
-//   rest.forEach(({ x: rx, r: ry, w: rw, h: rh }) => {
-
-
-//   })
-//   return collide
-// }
-// const boxes = [
-//   {
-//     x: 100,
-//     y: 100,
-//     w: 100,
-//     h: 100,
-//   },
-//   {
-//     x: 50,
-//     y: 50,
-//     w: 50,
-//     h: 50,
-//   },
-// ]
-
-// const hej  = boxes[0]
-// const svej = boxes[1]
-// const okok = (hej.w * hej.h)
-
-const doesCollide = (r1, r2) => {
-    return !(r2.left > r1.right || 
-             r2.right < r1.left || 
-             r2.top > r1.bottom ||
-             r2.bottom < r1.top);
+    return content.every((x) => x === 1);
+  }
 }
 
+const fabric = (input, width = 1000, height = 1000) => {
+  const sheet = new Sheet(width, height);
 
-// console.log(doesCollide(hej, svej))
+  const claims = input
+    .split('\n')
+    .map((x) => {
+      const parts = x.match(/#(\d+) @ (\d+),(\d+): (\d+)x(\d+)/);
 
-// //  input.reduce((total, claim, i) => {
-// //   const rest = input.slice(i)
-// //   return total += alrighty(claim, rest)
-// // }, 0)
-// // console.log(fabric)
+      return {
+        id: +parts[1],
+        top: +parts[3],
+        left: +parts[2],
+        width: +parts[4],
+        height: +parts[5],
+      };
+    });
+
+  claims.forEach((claim) => sheet.reserve(claim));
+
+  for (let i = 0; i < claims.length; i++) {
+    if (sheet.hasOverlap(claims[i])) {
+      return claims[i].id;
+    }
+  }
+};
+
+console.log(fabric(input, 1000, 1000));
+
+
+
+// part 2
 
